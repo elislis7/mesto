@@ -1,4 +1,4 @@
-.profile__info_name {
+.profile__info-name {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -12,14 +12,14 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 1023px) {
-  .profile__info_name {
+  .profile__info-name {
     font-size: 35px;
     line-height: 36px;
   }
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
-  .profile__info_name {
+  .profile__info-name {
     width: 189px;
     margin-top: 0;
     margin-left: 47px;
