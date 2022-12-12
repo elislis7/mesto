@@ -1,0 +1,43 @@
+@import url(../vendor/normalize.css);
+
+@import url(../fonts/Inter-Black/Inter-Black.css);
+@import url(../fonts/Inter-Medium/Inter-Medium.css);
+@import url(../fonts/Inter-Regular/Inter-Regular.css);
+
+@import url(../blocks/page/page.css);
+
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__logo/header__logo.css);
+@import url(../blocks/header/__line/header__line.css);
+
+@import url(../blocks/content/content.css);
+
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__info/_edit/profile__info_edit.css);
+@import url(../blocks/profile/__info/_name/profile__info_name.css);
+@import url(../blocks/profile/__info/_description/profile__info_description.css);
+@import url(../blocks/profile/__info/_button/profile__edit_button.css);
+@import url(../blocks/profile/__add/_button/profile__add_button.css);
+
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__close/_icon/popup__close_icon.css);
+@import url(../blocks/popup/__form/popup__form.css);
+@import url(../blocks/popup/__form/_title/popup__form_title.css);
+@import url(../blocks/popup/__form/_name/popup__form_name.css);
+@import url(../blocks/popup/__form/_description/popup__form_description.css);
+@import url(../blocks/popup/__submit/_button/popup__submit_button.css);
+
+@import url(../blocks/elements/elements.css);
+@import url(../blocks/elements/__card/elements__card.css);
+@import url(../blocks/element/element.css);
+@import url(../blocks/element/__photo/element__photo.css);
+@import url(../blocks/element/__designation/element__designation.css);
+@import url(../blocks/element/__text/element__text.css);
+@import url(../blocks/element/__heart/element__heart.css);
+
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);

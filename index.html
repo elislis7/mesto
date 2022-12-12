@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <script src="./script/index.js" defer></script>
+
+  <title>Место</title>
+</head>
+
+<body class="page">
+
+  <header class="header">
+    <img src="./images/logo.svg" alt="Логотип сайта Mesto" class="header__logo">
+    <div class="header__line"></div>
+  </header>
+
+  <main class="content">
+
+  <section class="profile">
+    <img src="images/image.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
+    <div class="profile__info">
+      <div class="profile__info_edit">
+        <h1 class="profile__info_name">Жак-Ив Кусто</h1>
+        <button class="profile__edit_button" type="button"></button>
+      </div>
+      <p class="profile__info_description">Исследователь океана</p>
+    </div>
+    <button class="profile__add_button" type="button"></button>
+    </section>
+
+  <div class="popup">
+    <div class="popup__container">
+      <button class="popup__close_icon" type="button" name="button"></button>
+      <form class="popup__form">
+        <h2 class="popup__form_title">Редактировать профиль</h2>
+        <input class="popup__form_name" type="text" name="button" placeholder="Имя" />
+        <input class="popup__form_description" type="text" name="button" placeholder="О себе" />
+        <button class="popup__submit_button" type="submit" name="button">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <section class="elements">
+    <ul class="elements__card">
+      <li class="element">
+        <img src="images/карачаевск.png" alt="Заброшенный старый кирпичный дом на фоне горного леса в Карачаевске" class="element__photo">
+        <div class="element__designation">
+        <p class="element__text">Карачаевск</p>
+        <button class="element__heart" type="button" name="button"></button>
+        </div>
+      </li>
+      <li class="element">
+        <img src="images/гораЭльбрусиздалека.png" alt="гора Эльбрус издалека" class="element__photo">
+        <div class="element__designation">
+        <p class="element__text">Гора Эльбрус</p>
+        <button class="element__heart" type="button" name="button"></button>
+        </div>
+      </li>
+      <li class="element">
+        <img src="images/домбай.png" alt="горы в Домбае" class="element__photo">
+        <div class="element__designation">
+        <p class="element__text">Домбай</p>
+        <button class="element__heart" type="button" name="button"></button>
+        </div>
+      </li>
+      <li class="element">
+        <img src="images/гораЭльбрусфотоближе.png" alt="заснеженная гора Эльбрус фото ближе" class="element__photo">
+        <div class="element__designation">
+        <p class="element__text">Гора Эльбрус</p>
+        <button class="element__heart" type="button" name="button"></button>
+        </div>
+      </li>
+      <li class="element">
+        <img src="images/домбайгорызимой.png" alt="Домбай горы зимой" class="element__photo">
+        <div class="element__designation">
+        <p class="element__text">Домбай</p>
+        <button class="element__heart" type="button" name="button"></button>
+        </div>
+      </li>
+      <li class="element">
+        <img src="images/карачаево-черкесия.png" alt="Заброшенный старый кирпичный дом на фоне горного леса с другого ракурса в Карачаево-Черкесии" class="element__photo">
+        <div class="element__designation">
+          <p class="element__text">Карачаево-Черкесия</p>
+          <button class="element__heart" type="button" name="button"></button>
+        </div>
+      </li>
+    </ul>
+  </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+  </footer>
+
+</body>
+
+</html>
