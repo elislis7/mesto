@@ -15,8 +15,3 @@
   opacity: 0.5;
   cursor: pointer;
 }
-
-.element__heart:active {
-  fill-rule: nonzero;
-  fill: black;
-}
