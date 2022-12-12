@@ -13,4 +13,4 @@ HTML5 | CSS3 | БЭМ / файловая структура в соответс�
 
 **GitHub Pages**
 
-* [Ссылка GitHub Pages]()
+* [Ссылка GitHub Pages](https://elislis7.github.io/mesto/)
