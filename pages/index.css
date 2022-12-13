@@ -1,14 +1,11 @@
 @import url(../vendor/normalize.css);
 
-@import url(../fonts/Inter-Black/Inter-Black.css);
-@import url(../fonts/Inter-Medium/Inter-Medium.css);
-@import url(../fonts/Inter-Regular/Inter-Regular.css);
+@import url(../fonts/fonts.css);
 
 @import url(../blocks/page/page.css);
 
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
-@import url(../blocks/header/__line/header__line.css);
 
 @import url(../blocks/content/content.css);
 
@@ -21,16 +18,6 @@
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
 
-@import url(../blocks/popup/popup.css);
-@import url(../blocks/popup/popup-opened/popup-opened.css);
-@import url(../blocks/popup/__container/popup__container.css);
-@import url(../blocks/popup/__close-icon/popup__close-icon.css);
-@import url(../blocks/popup/__form/popup__form.css);
-@import url(../blocks/popup/__form-title/popup__form-title.css);
-@import url(../blocks/popup/__form-name/popup__form-name.css);
-@import url(../blocks/popup/__form-description/popup__form-description.css);
-@import url(../blocks/popup/__submit-button/popup__submit-button.css);
-
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/elements/__card/elements__card.css);
 @import url(../blocks/element/element.css);
@@ -42,3 +29,11 @@
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
+
+@import url(../blocks/popup/popup.css);
+@import url(../blocks/popup/popup_opened/popup_opened.css);
+@import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__close-icon/popup__close-icon.css);
+@import url(../blocks/popup/__input/popup__input.css);
+@import url(../blocks/popup/__title/popup__title.css);
+@import url(../blocks/popup/__submit-button/popup__submit-button.css);
