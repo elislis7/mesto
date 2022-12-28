@@ -1,8 +1,8 @@
 // находим попап окошки
 const popupWindow = document.querySelector('.popup'); // в данную переменную сохраняем все объекты с классом popup
-const popupEdit = document.querySelector('.popup__edit'); //окно редактирования
-const popupAdd = document.querySelector('.popup__add'); //окно добавления
-const popupImage = document.querySelector('.popup__image'); //окно картинки
+const popupEdit = document.querySelector('.popup_type_edit'); //окно редактирования
+const popupAdd = document.querySelector('.popup_type_add'); //окно добавления
+const popupImage = document.querySelector('.popup_type_image'); //окно картинки
 
 // находим кнопки в попап окошке
 const popupCloseEdit = popupEdit.querySelector('.popup__close-icon'); //кнопка закрытия в окне редактирования
