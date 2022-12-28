@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./pages/index.css" />
     <script src="./script/index.js" defer></script>
-
     <title>Место</title>
   </head>
 
@@ -29,50 +28,6 @@
       </section>
 
       <section class="elements">
-        <ul class="elements__card">
-          <li class="element">
-            <img src="images/карачаевск.png" alt="Заброшенный старый кирпичный дом на фоне горного леса в Карачаевске" class="element__photo" />
-            <div class="element__designation">
-              <h2 class="element__text">Карачаевск</h2>
-              <button class="element__heart element__heart_active" type="button" name="button" aria-label="Кнопка сердца"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="images/гораЭльбрусиздалека.png" alt="гора Эльбрус издалека" class="element__photo" />
-            <div class="element__designation">
-              <h2 class="element__text">Гора Эльбрус</h2>
-              <button class="element__heart element__heart_active" type="button" name="button" aria-label="Кнопка сердца"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="images/домбай.png" alt="горы в Домбае" class="element__photo" />
-            <div class="element__designation">
-              <h2 class="element__text">Домбай</h2>
-              <button class="element__heart element__heart_active" type="button" name="button" aria-label="Кнопка сердца"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="images/гораЭльбрусфотоближе.png" alt="заснеженная гора Эльбрус фото ближе" class="element__photo" />
-            <div class="element__designation">
-              <h2 class="element__text">Гора Эльбрус</h2>
-              <button class="element__heart element__heart_active" type="button" name="button" aria-label="Кнопка сердца"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="images/домбайгорызимой.png" alt="Домбай горы зимой" class="element__photo" />
-            <div class="element__designation">
-              <h2 class="element__text">Домбай</h2>
-              <button class="element__heart element__heart_active" type="button" name="button" aria-label="Кнопка сердца"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img src="images/карачаево-черкесия.png" alt="Заброшенный старый кирпичный дом на фоне горного леса с другого ракурса в Карачаево-Черкесии" class="element__photo" />
-            <div class="element__designation">
-              <h2 class="element__text">Карачаево-Черкесия</h2>
-              <button class="element__heart element__heart_active" type="button" name="button" aria-label="Кнопка сердца"></button>
-            </div>
-          </li>
-        </ul>
       </section>
     </main>
 
@@ -80,7 +35,7 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
+    <div class="popup popup__edit">
       <div class="popup__container">
         <button class="popup__close-icon" type="button" name="button" aria-label="Кнопка закрытия вкладки"></button>
         <form class="popup__form">
@@ -91,5 +46,37 @@
         </form>
       </div>
     </div>
+
+    <div class="popup popup__add">
+      <div class="popup__container">
+        <button class="popup__close-icon" type="button" name="button" aria-label="Кнопка закрытия вкладки"></button>
+        <form class="popup__form popup__form_area_add">
+          <h3 class="popup__title">Новое место</h3>
+          <input class="popup__input popup__input_type_title" type="text" name="input-title" placeholder="Название" />
+          <input class="popup__input popup__input_type_image" type="text" name="input-image" placeholder="Ссылка на картинку" />
+          <button class="popup__submit-button" type="submit" name="button">Создать</button>
+        </form>
+      </div>
+    </div> 
+
+    <div class="popup popup__image">
+      <div class="popup__container_image">
+        <button class="popup__close-icon" type="button" name="button" aria-label="Кнопка закрытия вкладки"></button>
+        <img src="#" alt="#" class="popup__place-image">
+        <h3 class="popup__title-image"></h3>
+      </div>
+    </div>
+
+    <template id="element-template">
+      <article class="element">
+        <img src="#" alt="#" class="element__image">
+        <div class="element__designation">
+          <h2 class="element__title"></h2>
+          <button class="element__heart" type="button" name="button" aria-label="Кнопка сердца"></button>
+          <button class="element__trash" type="button" name="button" aria-label="Кнопка удаления"></button>
+        </div>
+      </article>
+    </template>
+
   </body>
 </html>
