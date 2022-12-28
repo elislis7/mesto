@@ -1,5 +1,4 @@
 // находим попап окошки
-const popupWindow = document.querySelector('.popup'); // в данную переменную сохраняем все объекты с классом popup
 const popupEdit = document.querySelector('.popup_type_edit'); //окно редактирования
 const popupAdd = document.querySelector('.popup_type_add'); //окно добавления
 const popupImage = document.querySelector('.popup_type_image'); //окно картинки
@@ -72,9 +71,9 @@ function createElement(name, link) {
   const cardImage = userElement.querySelector('.element__image');
 
   //находим элементы карточки
-  elementImage = userElement.querySelector('.element__image').src = link;
-  elementImageAlt = userElement.querySelector('.element__image').alt = name;
-  elementTitle = userElement.querySelector('.element__title').textContent = name;
+  cardImage.src = link;
+  cardImage.alt = name;
+  userElement.querySelector('.element__title').textContent = name;
 
   const trashButton = userElement.querySelector('.element__trash');
   trashButton.addEventListener('click', function() {
@@ -102,17 +101,17 @@ function openPopupImage (name, link) {
 };
 
 //функция открытия поп-апов
-function openPopup (popupWindow) {
-  popupWindow.classList.add('popup_opened')
+function openPopup (popup) {
+  popup.classList.add('popup_opened');
 };
 
 //функция закрытия поп-апов
-function closePopup(popupWindow) {
-  popupWindow.classList.remove('popup_opened');
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
 };
 
 //функция отправки на сервер редактированного профиля
-function handleFormSubmit (e) {
+function handleProfileFormSubmit (e) {
   e.preventDefault();
 
   profilePopupNameInput.textContent = inputName.value;
@@ -124,19 +123,18 @@ function addElement(name, link) {
   elementsContainer.prepend(createElement(name, link));
 } // добавляет карточку на страницу (кнопка "Создать")
 
-function renderElement() {
+function renderElements() {
   [...initialCards].reverse().forEach(card => {
     addElement(card.name, card.link);
   });
 };
 
-popupSubmitAdd.addEventListener('click', function(e) {
+function handleAddFormSubmit (e) {
   e.preventDefault();
 
   addElement(inputTitle.value, inputLink.value);
-  formElementAdd.reset();
   closePopup(popupAdd);
-});
+};
 
 buttonEditProfile.addEventListener('click', function () {
   openPopup(popupEdit);
@@ -167,6 +165,7 @@ popupCloseImage.addEventListener('click', function () {
 });
 
 
-formElementEdit.addEventListener('submit', handleFormSubmit);
+formElementEdit.addEventListener('submit', handleProfileFormSubmit);
+formElementAdd.addEventListener('submit', handleAddFormSubmit);
 
-renderElement();
+renderElements();
