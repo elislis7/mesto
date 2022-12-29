@@ -134,6 +134,7 @@ function handleAddFormSubmit (e) {
 
   addElement(inputTitle.value, inputLink.value);
   closePopup(popupAdd);
+  e.target.reset();
 };
 
 buttonEditProfile.addEventListener('click', function () {
@@ -145,10 +146,6 @@ buttonEditProfile.addEventListener('click', function () {
 
 buttonAddProfile.addEventListener('click', function () {
   openPopup(popupAdd);
-});
-
-buttonImagePlace.addEventListener('click', function () {
-  openPopup(popupImage);
 });
 
 //нажатие на кнопку крестика удаляет класс попап опен
