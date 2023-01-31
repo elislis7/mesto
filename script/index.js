@@ -1,42 +1,25 @@
-// находим попап окошки
 const popupEdit = document.querySelector('.popup_type_edit'); //окно редактирования
 const popupAdd = document.querySelector('.popup_type_add'); //окно добавления
 const popupImage = document.querySelector('.popup_type_image'); //окно картинки
-
-// находим кнопки в попап окошке
-const popupCloseEdit = popupEdit.querySelector('.popup__close-icon'); //кнопка закрытия в окне редактирования
-const popupCloseAdd = popupAdd.querySelector('.popup__close-icon'); // кнопка закрытия в окне добавления
-const popupCloseImage = popupImage.querySelector('.popup__close-icon'); // кнопка закрытия в окне картинки
+const popupCloseButton = document.querySelectorAll('.popup__close-icon'); //кнопка закрытия в окнах
 const popupSubmitEdit = popupEdit.querySelector('.popup__submit-button'); //кнопка сохранения данных в окне редактировная
 const popupSubmitAdd = popupAdd.querySelector('.popup__submit-button'); //кнопка сохранения данных в окне добавления
-
-//находим кнопки для открытия попап окошек
 const profile = document.querySelector('.profile'); // переменная для поиска кнопок по секции профайла 
 const buttonEditProfile = profile.querySelector('.profile__edit-button'); //кнопка редактирования
 const buttonAddProfile = profile.querySelector('.profile__add-button'); //кнопка добавления
 const buttonImagePlace = document.querySelector('.popup__place-image'); //кнопка картинки
-
-//находим элементы формы редактирования карточек
 const formElementEdit = document.querySelector('.popup__form'); //форма в окне редактировная
 const profilePopupNameInput = document.querySelector('.profile__info-name'); //имя
 const profilePopupDescriptionInput = document.querySelector('.profile__info-description'); //род занятия
 const inputName = document.querySelector('.popup__input_type_name'); //место куда будем подставлять значение имени
 const inputDescription = document.querySelector('.popup__input_type_description'); //место куда будем подставлять значение род занятия
-
-//находим элементы формы добавления карточек
 const formElementAdd = document.querySelector('.popup__form_area_add');
 const inputTitle = document.querySelector('.popup__input_type_title'); //место куда будем подставлять значение названия картинки
 const inputLink = document.querySelector('.popup__input_type_image'); //место куда будем подставлять значение ссылки на картинку 
-
-//находим элементы формы картинок
 const placeImage = popupImage.querySelector('.popup__place-image'); // находим карточку
 const titleImage = popupImage.querySelector('.popup__title-image'); // находим имя карточки
-
 const elementsContainer = document.querySelector('.elements');
-const userTemplate = document
-.querySelector('#element-template')
-.content
-.querySelector('.element');
+const userTemplate = document.querySelector('#element-template').content.querySelector('.element');
 
 // Массив карточек
 const initialCards = [
@@ -103,11 +86,15 @@ function openPopupImage (name, link) {
 //функция открытия поп-апов
 function openPopup (popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupEsc);
+  popup.addEventListener('click', closePopupOverlay);
 };
 
 //функция закрытия поп-апов
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupEsc);
+  popup.removeEventListener('click', closePopupOverlay);
 };
 
 //функция отправки на сервер редактированного профиля
@@ -148,21 +135,29 @@ buttonAddProfile.addEventListener('click', function () {
   openPopup(popupAdd);
 });
 
-//нажатие на кнопку крестика удаляет класс попап опен
-popupCloseEdit.addEventListener('click', function () {
-  closePopup(popupEdit);
+popupCloseButton.forEach(btn => {
+  const popup = btn.closest('.popup');
+  btn.addEventListener('click', () => closePopup(popup));
 });
-
-popupCloseAdd.addEventListener('click', function () {
-  closePopup(popupAdd);
-});
-
-popupCloseImage.addEventListener('click', function () {
-  closePopup(popupImage);
-});
-
 
 formElementEdit.addEventListener('submit', handleProfileFormSubmit);
 formElementAdd.addEventListener('submit', handleAddFormSubmit);
 
 renderElements();
+
+//функция закрытия поп-апов по escape
+function closePopupEsc(e) {
+    if (e.key === 'Escape') {
+      const popup = document.querySelector('.popup_opened');
+      closePopup(popup);
+    };
+};
+
+//функция закрытия поп-апов по нажатию на overlay
+const closePopupOverlay = function(e) {
+  if (e.target === e.currentTarget) {
+    return;
+  }
+  closePopup(e.target);
+};
+
