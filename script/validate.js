@@ -39,6 +39,12 @@ const setEventListeners = (formElement, settings) => {
 
     toggleButtonState(inputList, buttonElement, settings);
 
+    formElement.addEventListener('reset', () => {
+      setTimeout(() => {
+        toggleButtonState(inputList, buttonElement, settings);
+      }, 0);
+    });
+
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function() {
       checkInputValidity(formElement, inputElement, settings);
@@ -72,3 +78,17 @@ function toggleButtonState(inputList, buttonElement, settings) {
 }
 
 enableValidation(settings);
+
+/* Если код:
+buttonElement.classList.add(settings.inactiveButtonClass);
+buttonElement.setAttribute('disabled', 'disabled');
+и
+buttonElement.classList.remove(settings.inactiveButtonClass);
+buttonElement.removeAttribute('disabled');
+вынести в две функции, например enableSubmitButton и disableSubmitButton, 
+то их можно будет использовать внутри toggleButtonState, 
+а функцию disableSubmitButton можно будет переиспользовать еще 
+и при создании карточки пользователем или при открытии.
+
+Обращаю ваше внимание, при использовании disableSubmitButton из файла index.js 
+в неё следует передавать объект настроек валидации (или данные из него) */

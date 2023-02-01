@@ -21,34 +21,6 @@ const titleImage = popupImage.querySelector('.popup__title-image'); // нахо�
 const elementsContainer = document.querySelector('.elements');
 const userTemplate = document.querySelector('#element-template').content.querySelector('.element');
 
-// Массив карточек
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 function createElement(name, link) {
   const userElement = userTemplate.cloneNode(true); // клонирование содержимого тега темплейт
   const cardImage = userElement.querySelector('.element__image');
@@ -87,14 +59,12 @@ function openPopupImage (name, link) {
 function openPopup (popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
-  popup.addEventListener('click', closePopupOverlay);
 };
 
 //функция закрытия поп-апов
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closePopupEsc);
-  popup.removeEventListener('click', closePopupOverlay);
 };
 
 //функция отправки на сервер редактированного профиля
@@ -107,19 +77,21 @@ function handleProfileFormSubmit (e) {
 };
 
 function addElement(name, link) {
-  elementsContainer.prepend(createElement(name, link));
+  elementsContainer.append(createElement(name, link));
 } // добавляет карточку на страницу (кнопка "Создать")
 
-function renderElements() {
-  [...initialCards].reverse().forEach(card => {
-    addElement(card.name, card.link);
-  });
-};
+function addElementStart(name, link) {
+  elementsContainer.prepend(createElement(name, link));
+} // добавляет карточку на страницу (кнопка "Создать") в начало страницы
+
+initialCards.forEach(card => {
+  addElement(card.name, card.link);
+});
 
 function handleAddFormSubmit (e) {
   e.preventDefault();
 
-  addElement(inputTitle.value, inputLink.value);
+  addElementStart(inputTitle.value, inputLink.value);
   closePopup(popupAdd);
   e.target.reset();
 };
@@ -153,11 +125,15 @@ function closePopupEsc(e) {
     };
 };
 
+const popupList = Array.from(document.querySelectorAll('.popup')); // найдем все попапы на странице
 //функция закрытия поп-апов по нажатию на overlay
-const closePopupOverlay = function(e) {
-  if (e.target === e.currentTarget) {
-    return;
-  }
-  closePopup(e.target);
-};
+popupList.forEach((popup) => {
+  popup.addEventListener('mouseup', (e) => {
+    const targetClassList = e.target.classList;
+    if (targetClassList.contains('popup') || targetClassList.contains('popup__close-icon')) {
+      closePopup(popup);
+    }
+  });
+});
+
 
