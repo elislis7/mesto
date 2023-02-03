@@ -107,15 +107,8 @@ buttonAddProfile.addEventListener('click', function () {
   openPopup(popupAdd);
 });
 
-popupCloseButton.forEach(btn => {
-  const popup = btn.closest('.popup');
-  btn.addEventListener('click', () => closePopup(popup));
-});
-
 formElementEdit.addEventListener('submit', handleProfileFormSubmit);
 formElementAdd.addEventListener('submit', handleAddFormSubmit);
-
-renderElements();
 
 //функция закрытия поп-апов по escape
 function closePopupEsc(e) {
