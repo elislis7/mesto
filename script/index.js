@@ -1,13 +1,13 @@
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+import { initialCards } from './cards.js';
+
 const popupEdit = document.querySelector('.popup_type_edit'); //окно редактирования
 const popupAdd = document.querySelector('.popup_type_add'); //окно добавления
 const popupImage = document.querySelector('.popup_type_image'); //окно картинки
-const popupCloseButton = document.querySelectorAll('.popup__close-icon'); //кнопка закрытия в окнах
-const popupSubmitEdit = popupEdit.querySelector('.popup__submit-button'); //кнопка сохранения данных в окне редактировная
-const popupSubmitAdd = popupAdd.querySelector('.popup__submit-button'); //кнопка сохранения данных в окне добавления
 const profile = document.querySelector('.profile'); // переменная для поиска кнопок по секции профайла 
 const buttonEditProfile = profile.querySelector('.profile__edit-button'); //кнопка редактирования
 const buttonAddProfile = profile.querySelector('.profile__add-button'); //кнопка добавления
-const buttonImagePlace = document.querySelector('.popup__place-image'); //кнопка картинки
 const formElementEdit = document.querySelector('.popup__form'); //форма в окне редактировная
 const profilePopupNameInput = document.querySelector('.profile__info-name'); //имя
 const profilePopupDescriptionInput = document.querySelector('.profile__info-description'); //род занятия
@@ -19,39 +19,89 @@ const inputLink = document.querySelector('.popup__input_type_image'); //мест
 const placeImage = popupImage.querySelector('.popup__place-image'); // находим карточку
 const titleImage = popupImage.querySelector('.popup__title-image'); // находим имя карточки
 const elementsContainer = document.querySelector('.elements');
-const userTemplate = document.querySelector('#element-template').content.querySelector('.element');
+const popupList = Array.from(document.querySelectorAll('.popup')); // найдем все попапы на странице
 
-function createElement(name, link) {
-  const userElement = userTemplate.cloneNode(true); // клонирование содержимого тега темплейт
-  const cardImage = userElement.querySelector('.element__image');
-
-  //находим элементы карточки
-  cardImage.src = link;
-  cardImage.alt = name;
-  userElement.querySelector('.element__title').textContent = name;
-
-  const trashButton = userElement.querySelector('.element__trash');
-  trashButton.addEventListener('click', function() {
-    userElement.remove(); // находим сначала кнопку удаления дальше задаем реакцию на пользователя, что при нажатии вся карточка удаляется
-  });
-
-  const heartButton = userElement.querySelector('.element__heart');
-  heartButton.addEventListener('click', function(e) {
-    e.target.classList.toggle('element__heart_active'); //сначала находим сердце по классу, а потом задаем реакцию на пользователя (при нажатии на сердце добавляется доп.класс)
-  });
-
-  cardImage.addEventListener('click', function() {
-    openPopupImage(name, link);
-  });
-
-  return userElement;
+const settings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_inactive',
+  inputErrorClass: '.popup__input-type_error',
+  errorClass: 'popup__input-error_visible'
 };
 
+//валидация форм
+const editProfileFormValidation = new FormValidator(settings, formElementEdit);
+const newCreateCardFormValidation = new FormValidator(settings, formElementAdd);
+
+editProfileFormValidation.enableValidation();
+newCreateCardFormValidation.enableValidation();
+
+// ------------------------окно редактирования--------------------------
+
+// нажатие на кнопку редактирования
+buttonEditProfile.addEventListener('click', () => {
+  openPopup(popupEdit);
+
+  inputName.value = profilePopupNameInput.textContent;
+  inputDescription.value = profilePopupDescriptionInput.textContent;
+
+  editProfileFormValidation.resetValidation();
+});
+
+//функция отправки на сервер редактированного профиля
+function handleProfileFormSubmit (e) {
+  e.preventDefault();
+
+  profilePopupNameInput.textContent = inputName.value;
+  profilePopupDescriptionInput.textContent = inputDescription.value;
+  closePopup(popupEdit);
+};
+
+// отправка данных на сервер 
+formElementEdit.addEventListener('submit', handleProfileFormSubmit);
+
+// ------------------------окно добавления карточки--------------------------
+
+function renderCard(item) {
+  const card = new Card(item, '#element-template', openPopupImage); // экземпляр карточки
+  const cardElement = card.createElement(); // создаем карточку
+
+  elementsContainer.prepend(cardElement); // добавляем карточку в HTML
+};
+
+initialCards.forEach(renderCard);
+
+// нажатие на кнопку добавления новой карточки
+buttonAddProfile.addEventListener('click', () => {
+  openPopup(popupAdd);
+  formElementAdd.reset();
+  newCreateCardFormValidation.resetValidation();
+});
+
+//функция отправки на сервер добавления карточки
+function handleAddFormSubmit (e) {
+  e.preventDefault();
+
+  const name = inputTitle.value;
+  const link = inputLink.value;
+  const item = {name: name, link: link}
+  renderCard(item);
+  closePopup(popupAdd);
+  e.target.reset();
+};
+
+// отправка данных на сервер на добавление карточки
+formElementAdd.addEventListener('submit', handleAddFormSubmit);
+
+//----------------функции открытия/закрытия---------------------
+
+// фун-ция открытия большрй картинки
 function openPopupImage (name, link) {
   openPopup(popupImage);
 
   titleImage.textContent = name;
-  placeImage.alt = name;
+  placeImage.alt = `${name}.`;
   placeImage.src = link;
 };
 
@@ -67,49 +117,6 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closePopupEsc);
 };
 
-//функция отправки на сервер редактированного профиля
-function handleProfileFormSubmit (e) {
-  e.preventDefault();
-
-  profilePopupNameInput.textContent = inputName.value;
-  profilePopupDescriptionInput.textContent = inputDescription.value;
-  closePopup(popupEdit);
-};
-
-function addElement(name, link) {
-  elementsContainer.append(createElement(name, link));
-} // добавляет карточку на страницу (кнопка "Создать")
-
-function addElementStart(name, link) {
-  elementsContainer.prepend(createElement(name, link));
-} // добавляет карточку на страницу (кнопка "Создать") в начало страницы
-
-initialCards.forEach(card => {
-  addElement(card.name, card.link);
-});
-
-function handleAddFormSubmit (e) {
-  e.preventDefault();
-
-  addElementStart(inputTitle.value, inputLink.value);
-  closePopup(popupAdd);
-  e.target.reset();
-};
-
-buttonEditProfile.addEventListener('click', function () {
-  openPopup(popupEdit);
-
-  inputName.value = profilePopupNameInput.textContent;
-  inputDescription.value = profilePopupDescriptionInput.textContent;
-});
-
-buttonAddProfile.addEventListener('click', function () {
-  openPopup(popupAdd);
-});
-
-formElementEdit.addEventListener('submit', handleProfileFormSubmit);
-formElementAdd.addEventListener('submit', handleAddFormSubmit);
-
 //функция закрытия поп-апов по escape
 function closePopupEsc(e) {
     if (e.key === 'Escape') {
@@ -118,7 +125,6 @@ function closePopupEsc(e) {
     };
 };
 
-const popupList = Array.from(document.querySelectorAll('.popup')); // найдем все попапы на странице
 //функция закрытия поп-апов по нажатию на overlay
 popupList.forEach((popup) => {
   popup.addEventListener('mouseup', (e) => {
