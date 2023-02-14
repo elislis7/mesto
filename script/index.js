@@ -63,10 +63,17 @@ formElementEdit.addEventListener('submit', handleProfileFormSubmit);
 
 // ------------------------окно добавления карточки--------------------------
 
-function renderCard(item) {
+// создаем элемент карточки и возвращаем саму карточку
+function createCard(item) {
   const card = new Card(item, '#element-template', openPopupImage); // экземпляр карточки
   const cardElement = card.createElement(); // создаем карточку
 
+  return cardElement; // возвращаем созданную карточку
+}
+
+// вызываем функцию 'создания элемента карточки' и вставляем его в HTML
+function renderCard(item) {
+  const cardElement = createCard(item); // создаем карточку
   elementsContainer.prepend(cardElement); // добавляем карточку в HTML
 };
 
@@ -94,7 +101,7 @@ function handleAddFormSubmit (e) {
 // отправка данных на сервер на добавление карточки
 formElementAdd.addEventListener('submit', handleAddFormSubmit);
 
-//----------------функции открытия/закрытия---------------------
+//----------------функции открытия/закрытия попапов---------------------
 
 // фун-ция открытия большрй картинки
 function openPopupImage (name, link) {

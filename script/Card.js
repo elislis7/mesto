@@ -1,10 +1,10 @@
 export class Card {
-  constructor(data, templateSelector, openImageClick) {
+  constructor(data, templateSelector, openImageBig) {
       this._name = data.name;
       this._link = data.link;
 
       this._templateSelector = templateSelector;
-      this._openImageClick = openImageClick;
+      this._openImageBig = openImageBig;
   }
 
   // клонируем разметку из HTML и возврат содержимого тега темплейт
@@ -23,16 +23,16 @@ export class Card {
       this._element = this._getTemplate();
 
       // классовые переменные 
-      this._elementHeartButtonClick = this._element.querySelector('.element__heart');
-      this._elementTrashButtonClick = this._element.querySelector('.element__trash');
-      this._elementLink = this._element.querySelector('.element__image');
+      this._heartButton = this._element.querySelector('.element__heart');
+      this._trashButton = this._element.querySelector('.element__trash');
+      this._elementImage = this._element.querySelector('.element__image');
       this._elementName = this._element.querySelector('.element__title');
       
       this._setEventListeners();
 
       //передаем параметры карточки (картинка)
-      this._elementLink.src = this._link;
-      this._elementLink.alt = this._name;
+      this._elementImage.src = this._link;
+      this._elementImage.alt = this._name;
       //передаем параметры карточки (название)
       this._elementName.textContent = this._name;
 
@@ -40,26 +40,26 @@ export class Card {
   }
 
   _setEventListeners() {
-    this._elementHeartButtonClick.addEventListener('click', () => {
-      this._heartButtonClick();
+    this._heartButton.addEventListener('click', () => {
+      this._toggleLike();
     });
       
-    this._elementTrashButtonClick.addEventListener('click', () => {
-      this._trashButtonClick();
+    this._trashButton.addEventListener('click', () => {
+      this._deleteCard();
     });
 
-    this._elementLink.addEventListener('click', () => {
-      this._openImageClick(this._name, this._link);
+    this._elementImage.addEventListener('click', () => {
+      this._openImageBig(this._name, this._link);
     });
   };
 
   //реакция на кнопку сердца
-  _heartButtonClick() {
-    this._elementHeartButtonClick.classList.toggle('element__heart_active');
+  _toggleLike() {
+    this._heartButton.classList.toggle('element__heart_active');
   }
 
   //удаление карточки
-  _trashButtonClick() {
+  _deleteCard() {
     this._element.remove();
   }
 }
