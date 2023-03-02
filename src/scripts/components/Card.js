@@ -1,10 +1,10 @@
 export class Card {
-  constructor(data, templateSelector, openImageBig) {
+  constructor(data, templateSelector, handleCardClick) {
       this._name = data.name;
       this._link = data.link;
 
       this._templateSelector = templateSelector;
-      this._openImageBig = openImageBig;
+      this._handleCardClick = handleCardClick;
   }
 
   // клонируем разметку из HTML и возврат содержимого тега темплейт
@@ -49,7 +49,7 @@ export class Card {
     });
 
     this._elementImage.addEventListener('click', () => {
-      this._openImageBig(this._name, this._link);
+      this._handleCardClick(this._name, this._link);
     });
   };
 
@@ -61,5 +61,13 @@ export class Card {
   //удаление карточки
   _deleteCard() {
     this._element.remove();
+  }
+
+  getNameImage() {
+    return this._name;
+  }
+
+  getLinkImage() {
+    return this._link;
   }
 }
