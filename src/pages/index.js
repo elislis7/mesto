@@ -13,7 +13,6 @@ import {
   popupList,
   formElementEdit,
   formElementAdd,
-  popupImage,
   inputTitle,
   inputLink,
   placeImage,
@@ -40,8 +39,8 @@ popupWithImage.setEventListeners();
 const popupEditProfile = new PopupWithForm('.popup_type_edit', handleProfileFormSubmit);
 
 //функция отправки на сервер редактированного профиля
-function handleProfileFormSubmit (data) {
-  userInfo.setUserInfo({ name: data.inputName, description: data.inputDescription });
+function handleProfileFormSubmit () {
+  userInfo.setUserInfo({ name: inputName.value, description: inputDescription.value });
   popupEditProfile.close();
 };
 
@@ -58,8 +57,8 @@ buttonEditProfile.addEventListener('click', () => {
   popupEditProfile.open();
 });
 
-const createNewCard = new PopupWithForm('.popup_type_add', (item) => {
-  const newCard = createCard({ name: item.name, link: item.link });
+const createNewCard = new PopupWithForm('.popup_type_add', () => {
+  const newCard = createCard({ name: inputTitle.value, link: inputLink.value });
   cardList.addItem(newCard);
 });
 
@@ -71,8 +70,8 @@ function handleCardClick() {
 };
 
 // создаем элемент карточки и возвращаем саму карточку
-function createCard(item) {
-  const card = new Card(item, '#element-template', handleCardClick); // экземпляр карточки
+function createCard(data) {
+  const card = new Card(data, '#element-template', handleCardClick); // экземпляр карточки
   const cardElement = card.createElement(); // создаем карточку
 
   return cardElement; // возвращаем созданную карточку
@@ -82,8 +81,8 @@ function createCard(item) {
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-      const cardElement = createCard(item);
-      cardList.addItem(cardElement);
+      const newCard = createCard(item);
+      cardList.addItem(newCard);
     }
   },
   '.elements'
@@ -95,7 +94,6 @@ cardList.renderer();
 buttonAddProfile.addEventListener('click', () => {
   newCreateCardFormValidation.resetValidation();
   createNewCard.open();
-  formElementAdd.reset();
 });
 
 
