@@ -6,13 +6,13 @@ export class Section {
     this._containerSelector = document.querySelector(containerSelector);
   }
 
-renderer() {
-  this._items.forEach((item) => {
-      this._renderer(item);
-    });
-  }
+  renderer(items) {
+    items.forEach((item) => {
+        this._renderer(item);
+      });
+    }
 
-addItem(e) {
-    this._containerSelector.prepend(e);
-  }
+  addItem(e) {
+      this._containerSelector.prepend(e);
+    }
 }
