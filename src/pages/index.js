@@ -107,12 +107,16 @@ function handleCardLike(card) {
     api.deleteLikes(card._cardId)
     .then((res) => {
       card.getlikesCard(res.likes);
+      card.toggleIsLike();
+      card.deleteLike();
     })
     .catch(err => console.log(err));
   } else {
     api.addLikes(card._cardId)
     .then((res) => {
       card.getlikesCard(res.likes);
+      card.toggleIsLike();
+      card.addLike();
     })
     .catch(err => console.log(err));
   }
