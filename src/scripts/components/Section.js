@@ -13,6 +13,10 @@ export class Section {
     }
 
   addItem(e) {
-      this._containerSelector.prepend(e);
+      this._containerSelector.append(e);
     }
+
+  addItemPrepend(e) {
+    this._containerSelector.prepend(e);
+  }
 }

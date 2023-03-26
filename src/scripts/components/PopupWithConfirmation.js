@@ -1,9 +1,9 @@
-import {Popup} from "./Popup.js";
+import { Popup } from "./Popup.js";
 
-export default class PopupWithConfirmation extends Popup {
+export class PopupWithConfirmation extends Popup {
 	constructor(popupSelector, handleFormDeleteSubmit) {
 		super(popupSelector);
-		this._handleFormDeleteSubmit = handleFormDeleteSubmit.bind(this);
+		this._handleFormDeleteSubmit = handleFormDeleteSubmit/* .bind(this) */;
 
 		this._form = this._popup.querySelector('.popup__form');
 		this._button = this._form.querySelectorAll('.popup__submit-button');
@@ -16,16 +16,15 @@ export default class PopupWithConfirmation extends Popup {
 	open(card, cardID) {
         super.open();
         this._card = card; 
-        this._cardID = cardID; //данные id карточки
+        this._cardID = cardID;
     }
 
 	setEventListeners() {
-		this._form.addEventListener('submit', (e) => {
+		this._popup.addEventListener('click', (e) => {
 			e.preventDefault();
-			this._handleFormDeleteSubmit();
-			/* super.close(); */
+			this._handleFormDeleteSubmit(this._card);
+			super.close();
 		});
-
 	super.setEventListeners();
 	}
 }

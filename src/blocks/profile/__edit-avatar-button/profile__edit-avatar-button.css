@@ -1,4 +1,7 @@
 .profile__edit-avatar-button {
+  position: absolute;
+  top: 0;
+  left: 0;
   padding: 0;
   width: 120px;
   height: 120px;
@@ -7,10 +10,10 @@
   border-radius: 50%;
   border: none;
   background: transparent;
+  z-index: 1;
 }
 
 .profile__edit-avatar-button:hover {
-  position: relative;
   background: rgba(0, 0, 0, 0.8);
   cursor: pointer;
   background-image: url(../../../images/Vector.svg);
@@ -18,5 +21,5 @@
   background-position: center;
   text-align: right;
   white-space: nowrap;
-  transition: opacity .8s ease, visibility .8s ease;
+  transition: .3s ease;
 }

@@ -6,7 +6,7 @@ import Api from '../scripts/components/Api.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
-import PopupWithConfirmation from '../scripts/components/PopupWithConfirmation.js';
+import { PopupWithConfirmation } from '../scripts/components/PopupWithConfirmation.js';
 import {
   inputName,
   inputDescription,
@@ -74,49 +74,48 @@ const popupEditAvatar = new PopupWithForm('.popup_edit_avatar',
 popupEditAvatar.setEventListeners();
 
 buttonEditAvatar.addEventListener('click', () => {
-  popupEditAvatar.open();
   editAvatarFormValidation.resetValidation();
+  popupEditAvatar.open();
 })
 
 // подтверждение удаления карточки
 const popupDeleteCard = new PopupWithConfirmation('.popup_delete_card', card => {
   popupDeleteCard.setButtonText('Удаление...');
 
-  api.deleteCard(card._cardId)
-  console.log(api.deleteCard())
+  api.deleteCardApi(card._cardId)
   .then(() => {
     card.deleteCard();
     popupDeleteCard.close();
   })
   .catch(err => console.log(err))
   .finally(() => {
-    popupDeleteCard.setButtonText('Да');
+    popupDeleteCard.setButtonText('Да')
   })
 });
 
-popupDeleteCard.setEventListeners();
-
 //открытие попапа с удалением
-function handleCardDelete(card, cardId) {
-  popupDeleteCard.open(card, cardId);
+function handleCardDelete(card, cardID) {
+  popupDeleteCard.open(card, cardID);
 };
 
+popupDeleteCard.setEventListeners();
+
 //функция обработки лайков (счет, удаление, добавление)
-function handleCardLike(card) {
+function handleCardLike(card, cardID) {
   if (card.isLike) {
-    api.deleteLikes(card._cardId)
+    api.deleteLikes(cardID)
     .then((res) => {
       card.getlikesCard(res.likes);
       card.toggleIsLike();
-      card.deleteLike();
+      card.toggleLike();
     })
     .catch(err => console.log(err));
   } else {
-    api.addLikes(card._cardId)
+    api.addLikes(cardID)
     .then((res) => {
       card.getlikesCard(res.likes);
       card.toggleIsLike();
-      card.addLike();
+      card.toggleLike();
     })
     .catch(err => console.log(err));
   }
@@ -197,7 +196,7 @@ const createNewCard = new PopupWithForm('.popup_type_add',
     api.createCard(name, link)
       .then((res) => {
         const newImage = createCard(res);
-        cardList.addItem(newImage);
+        cardList.addItemPrepend(newImage);
         createNewCard.close();
       })
       .catch(err => console.log(err))
@@ -212,8 +211,8 @@ createNewCard.setEventListeners();
 
 // нажатие на кнопку добавления новой карточки
 buttonAddProfile.addEventListener('click', () => {
-  createNewCard.open();
   newCreateCardFormValidation.resetValidation();
+  createNewCard.open();
 });
 
 //----------------функции открытия/закрытия попапов---------------------

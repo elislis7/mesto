@@ -49,6 +49,10 @@ export class Card {
     });
   };
 
+  _clickLikeButton() {
+    this._likeButton.classList.toggle('element__heart_active');
+  }
+
   get isLike() {
     return this._isLike;
   }
@@ -66,7 +70,7 @@ export class Card {
 
   //добавить / убрать лайк
   toggleLike() {
-    this._heartButton.classList.toggle('element__like-button_active');
+    this._heartButton.classList.toggle('element__heart_active');
   }
 
   // удаление карточки
@@ -78,28 +82,20 @@ export class Card {
   createElement() {
     this._setEventListeners();
 
-    //передаем параметры карточки (картинка)
-    this._elementImage.src = this._link;
-    this._elementImage.alt = this._name;
-    //передаем параметры карточки (название)
-    this._elementName.textContent = this._name;
-    //передаем параметр карточки (лайк)
-    this._likeCounter.textContent = this._likes.length;
+    this._elementImage.src = this._link; //передаем параметры карточки (картинка)
+    this._elementImage.alt = this._name; //передаем параметры карточки (название картинки)
+    this._elementName.textContent = this._name; //передаем параметры карточки (название)
+    this._likeCounter.textContent = this._likes.length; //передаем параметр карточки (лайк)
 
     // убираем кнопку удаления карточки, если добавил карточку другой пользователь
     if (this._userId !== this._ownerId) {
       this._trashButton.remove();
-    }
+    };
 
-    //проверяем, есть ли текущий пользователь в массиве лайков
-    this._isLiked = this._likes.some((like) => like._id === this._userId);
-
-    if (this._isLiked) {
+    if (this._likes.some(item => item._id === this._userId)) {
       this._heartButton.classList.add('element__heart_active');
       this._isLike = true;
-    } else {
-      this._heartButton.classList.remove('element__heart_active');
-    }
+    };
 
     return this._element;
   }
