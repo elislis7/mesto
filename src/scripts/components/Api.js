@@ -4,18 +4,22 @@ export default class Api {
     this._headers = data.headers;
   }
 
+  _handleResponse(res) {
+    if (res.ok) {
+        return res.json();
+      } else {
+        return Promise.reject(`Ошибка: ${res.status}`);
+      }
+  }
+
+
   //получаем инфо пользователя
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers,
       method: 'GET',
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch(err => console.log(err));
+      .then(this._handleResponse)
   }
 
   //получаем карточки
@@ -24,12 +28,7 @@ export default class Api {
       headers: this._headers,
       method: 'GET',
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch(err => console.log(err));
+      .then(this._handleResponse)
   }
 
   //редактирование профиля
@@ -39,12 +38,7 @@ export default class Api {
       method: "PATCH",
       body: JSON.stringify({name: data.name, about: data.about}),
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch(err => console.log(err));
+      .then(this._handleResponse)
   }
 
   //редактирование аватара
@@ -54,12 +48,7 @@ export default class Api {
       method: "PATCH",
       body: JSON.stringify({ avatar: data.avatar }),
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch(err => console.log(err));
+      .then(this._handleResponse)
   }
 
   //создание карточки
@@ -69,12 +58,7 @@ export default class Api {
       method: "POST",
       body: JSON.stringify({name: item.name, link: item.link}),
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch(err => console.log(err));
+      .then(this._handleResponse)
   }
 
   //удаление карточки
@@ -83,12 +67,7 @@ export default class Api {
       headers: this._headers,
       method: "DELETE",
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch(err => console.log(err));
+      .then(this._handleResponse)
   }
 
   // добавление лайка
@@ -97,12 +76,7 @@ export default class Api {
       headers: this._headers,
       method: "PUT",
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch(err => console.log(err));
+      .then(this._handleResponse)
   }
 
   //удаление лайка
@@ -111,11 +85,6 @@ export default class Api {
       headers: this._headers,
       method: "DELETE",
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .catch(err => console.log(err));
+      .then(this._handleResponse)
   }
 }

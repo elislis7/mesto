@@ -46,15 +46,6 @@ Promise.all([api.getUserInfo(), api.getCards()])
   })
   .catch(err => console.log(err))
 
-  //получение данных о пользователе
-  api.getUserInfo()
-  .then((res) => {
-    userInfo.getUserInfo(res);
-    inputName.value = res.name;
-    inputDescription.value = res.about;  
-  })
-  .catch(err => console.log(err));
-
 const popupEditAvatar = new PopupWithForm('.popup_edit_avatar',
   { handleFormSubmit: (data) => {
     popupEditAvatar.setButtonText('Сохранение...');
@@ -161,6 +152,11 @@ popupEditProfile.setEventListeners();
 // нажатие на кнопку редактирования
 buttonEditProfile.addEventListener('click', () => {
   editProfileFormValidation.resetValidation();
+  const { name, about } = userInfo.getUserInfo(); 
+
+  inputName.value = name; 
+  inputDescription.value = about; 
+
   popupEditProfile.open();
 });
 
@@ -183,45 +179,39 @@ function createCard(data) {
   return cardElement; // возвращаем созданную карточку
 };
 
-api.getCards()
-  .then((res) => {
-    cardList.renderer(res);
-  })
-  .catch(err => console.log(err));
-
-const createNewCard = new PopupWithForm('.popup_type_add', 
+const popupAddCard = new PopupWithForm('.popup_type_add', 
   { handleFormSubmit: (name, link) => {
-    createNewCard.setButtonText('Сохранение...');
+    popupAddCard.setButtonText('Сохранение...');
 
     api.createCard(name, link)
       .then((res) => {
         const newImage = createCard(res);
         cardList.addItemPrepend(newImage);
-        createNewCard.close();
+        popupAddCard.close();
       })
       .catch(err => console.log(err))
       .finally(() => {
-        createNewCard.setButtonText('Создать');
+        popupAddCard.setButtonText('Создать');
       })
     }
   }
 );
 
-createNewCard.setEventListeners();
+popupAddCard.setEventListeners();
 
 // нажатие на кнопку добавления новой карточки
 buttonAddProfile.addEventListener('click', () => {
   newCreateCardFormValidation.resetValidation();
-  createNewCard.open();
+  popupAddCard.open();
 });
 
 //----------------функции открытия/закрытия попапов---------------------
 
-const popupWithImage = new PopupWithImage('.popup_type_image', placeImage, titleImage);
+const popupWithImage = new PopupWithImage('.popup_type_image');
 
 // фун-ция открытия большрй картинки
-function handleCardClick() {
-  popupWithImage.open(this.getNameImage(), this.getLinkImage());
+function handleCardClick(name, link) {
+  popupWithImage.open(name, link);
 };
 
 popupWithImage.setEventListeners();

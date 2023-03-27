@@ -12,11 +12,11 @@ export class Section {
       });
     }
 
-  addItem(e) {
-      this._containerSelector.append(e);
+  addItem(item) {
+      this._containerSelector.append(item);
     }
 
-  addItemPrepend(e) {
-    this._containerSelector.prepend(e);
+  addItemPrepend(item) {
+    this._containerSelector.prepend(item);
   }
 }
