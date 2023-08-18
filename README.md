@@ -181,8 +181,3 @@
 
 
 ## [Ссылка на сайт](https://elislis7.github.io/mesto/)
-
-
-<h4 align="center">План по доработке проекта</h4>
-
--[x]
